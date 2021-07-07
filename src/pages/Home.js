@@ -6,27 +6,15 @@ import { alertCircleOutline } from "ionicons/icons";
 
 const Home = () => {
 
-	const { register, handleSubmit, formState: { errors }, trigger } = useForm({
+	const { register, handleSubmit, formState: { errors } } = useForm({
 		
-		mode: "onBlur",
-		reValidateMode: "onBlur"
+		mode: "onTouched",
+		reValidateMode: "onChange"
 	});
 
 	const fields = [
-
 		{
-			label: "Not Required",
-			required: false,
-			requiredOptions: {},
-			props: {
-				
-				name: "test1",
-				type: "text",
-				placeholder: "Enter some text"
-			}
-		},
-		{
-			label: "Username",
+			label: "Firstname",
 			required: true,
 			requiredOptions: {
 
@@ -34,7 +22,7 @@ const Home = () => {
 			},
 			props: {
 				
-				name: "username",
+				name: "firstname",
 				type: "text",
 				placeholder: "Enter a username"
 			}
@@ -45,7 +33,7 @@ const Home = () => {
 			required: true,
 			requiredOptions: {
 
-				min: 1,
+				min: 18,
 				max: 99
 			},
 			props: {
@@ -57,6 +45,8 @@ const Home = () => {
 			}
 		}
 	];
+
+	console.log(errors);
 	
 	const onSubmit = (data) => {
 		
@@ -90,7 +80,7 @@ const Home = () => {
 
 								<>
 									<IonLabel position="fixed">{ label }</IonLabel>
-									<IonInput { ...props } { ...register(props.name, { required, ...requiredOptions }) } onIonChange={ e => { errors[props.name] && trigger(props.name) }} />
+									<IonInput { ...props } { ...register(props.name, { required, ...requiredOptions }) } />
 								</>
 								{ required && errors[props.name] && <IonIcon icon={ alertCircleOutline } color="danger" /> }
 							</IonItem>
